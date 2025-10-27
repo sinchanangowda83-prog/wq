@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Menu - Order Your Favorites</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍽️ Hotel Menu</h1>
+            <p class="subtitle">Delicious Food Awaits You</p>
+            <a href="order-status.html" class="order-status-btn">📦 View My Orders</a>
+        </header>
+
+        <div class="menu-container">
+            <!-- Veg Section -->
+            <section class="menu-section" id="veg-section">
+                <h2 class="section-title veg-title">🥗 Vegetarian</h2>
+                <div class="items-grid" id="veg-items">
+                    <!-- Veg items will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Non-Veg Section -->
+            <section class="menu-section" id="non-veg-section">
+                <h2 class="section-title non-veg-title">🍗 Non-Vegetarian</h2>
+                <div class="items-grid" id="non-veg-items">
+                    <!-- Non-veg items will be populated by JavaScript -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Cart Section -->
+        <div class="cart-container" id="cart-container">
+            <div class="cart-header">
+                <h2>🛒 Your Order</h2>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <p class="empty-cart">No items in cart</p>
+            </div>
+            <div class="cart-footer" id="cart-footer">
+                <div class="total-section">
+                    <strong>Total: ₹<span id="total-price">0</span></strong>
+                </div>
+                <button class="order-btn" id="order-btn" disabled>Place Order</button>
+            </div>
+        </div>
+
+        <!-- Floating Cart Button for Mobile -->
+        <div class="floating-cart-btn" id="floating-cart-btn">
+            <span>🛒</span>
+            <span class="badge" id="mobile-cart-count">0</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

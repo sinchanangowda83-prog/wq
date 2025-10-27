@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Login - Hotel Management</title>
+    <link rel="stylesheet" href="owner-login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>🏨 Owner Login</h1>
+                <p>Hotel Management Dashboard</p>
+            </div>
+            
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="owner@hotel.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter password">
+                    <button type="button" class="toggle-password" id="toggle-password">👁️</button>
+                </div>
+                
+                <div class="form-group">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember-me">
+                        <span>Remember me</span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="login-btn">Login</button>
+                
+                <div class="error-message" id="error-message"></div>
+            </form>
+            
+            <div class="login-footer">
+                <p>Default credentials for demo:</p>
+                <p><strong>Email:</strong> owner@hotel.com</p>
+                <p><strong>Password:</strong> admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="owner-login.js"></script>
+</body>
+</html>
+

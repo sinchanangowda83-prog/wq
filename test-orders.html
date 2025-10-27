@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Order Creation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .link {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+        }
+        .link:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Order Creation</h1>
+        
+        <div class="info">
+            <strong>Instructions:</strong> Use this page to test that customer orders appear on the owner dashboard in real-time.
+        </div>
+
+        <div class="test-section">
+            <h3>1. Create Test Orders</h3>
+            <p>Click the buttons below to create sample orders that will appear on the owner dashboard:</p>
+            <button onclick="createTestOrder('Chicken Biryani', 180, '🍛')">Create Chicken Biryani Order</button>
+            <button onclick="createTestOrder('Paneer Butter Masala', 180, '🧀')">Create Paneer Order</button>
+            <button onclick="createTestOrder('Mixed Fruit Juice', 80, '🍹')">Create Juice Order</button>
+            <button onclick="createTestOrder('Fish Curry', 150, '🐟')">Create Fish Order</button>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Open Owner Dashboard</h3>
+            <p>Click the link below to open the owner dashboard and see the orders in real-time:</p>
+            <a href="hotel-management-dashboard.html" class="link" target="_blank">🏨 Open Owner Dashboard</a>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Test Customer Experience</h3>
+            <p>Test the full customer experience with QR code simulation:</p>
+            <a href="index.html?mode=customer" class="link" target="_blank">📱 Customer Menu (QR Mode)</a>
+            <a href="order-status.html?mode=customer" class="link" target="_blank">📦 Customer Orders</a>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Clear All Data</h3>
+            <p>Reset all orders and notifications for fresh testing:</p>
+            <button onclick="clearAllData()" style="background: #f44336;">🗑️ Clear All Data</button>
+        </div>
+
+        <div class="info">
+            <strong>Note:</strong> The owner dashboard will automatically refresh every 3 seconds and also update immediately when new orders are placed.
+        </div>
+    </div>
+
+    <script>
+        function createTestOrder(itemName, price, icon) {
+            // Create a test order
+            const orderId = 'TEST-' + Date.now();
+            const order = {
+                id: orderId,
+                items: {
+                    'test-item': {
+                        name: itemName,
+                        price: price,
+                        quantity: 1,
+                        icon: icon,
+                        type: 'test'
+                    }
+                },
+                total: price,
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                customerContact: 'test@example.com'
+            };
+
+            // Store order in localStorage
+            let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // Store order in owner notifications
+            let ownerNotifications = JSON.parse(localStorage.getItem('ownerNotifications') || '[]');
+            ownerNotifications.push({
+                orderId: orderId,
+                message: `New test order received! ${itemName} - ₹${price}`,
+                timestamp: new Date().toISOString(),
+                read: false
+            });
+            localStorage.setItem('ownerNotifications', JSON.stringify(ownerNotifications));
+
+            // Trigger custom event for real-time updates
+            window.dispatchEvent(new CustomEvent('orderUpdated'));
+
+            alert(`Test order created: ${itemName} - ₹${price}\nOrder ID: ${orderId}\n\nCheck the owner dashboard to see it appear!`);
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all orders and notifications?')) {
+                localStorage.removeItem('orders');
+                localStorage.removeItem('ownerNotifications');
+                localStorage.removeItem('customerNotifications');
+                localStorage.removeItem('orderRatings');
+                
+                // Trigger update event
+                window.dispatchEvent(new CustomEvent('orderUpdated'));
+                
+                alert('All data cleared! The owner dashboard should now show "No orders yet".');
+            }
+        }
+
+        // Show current order count
+        function updateOrderCount() {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            console.log(`Current orders in system: ${orders.length}`);
+        }
+
+        // Update count on page load
+        updateOrderCount();
+    </script>
+</body>
+</html>
